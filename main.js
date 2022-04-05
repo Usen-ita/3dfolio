@@ -2,6 +2,7 @@ import './style.css'
 
 import * as THREE from 'three';
 
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
@@ -23,9 +24,12 @@ renderer.render( scene, camera);
 
 
 
+
+
 //capsule
 
-const geometry = new THREE.CapsuleGeometry( 6.844, 10.382, 10, 21 )
+//const geometry = new THREE.CapsuleGeometry( 6.844, 10.382, 10, 21 )
+const geometry = new THREE.SphereGeometry( 6, 32, 10)
 const material = new THREE.MeshNormalMaterial( {
     color: 0x4432a8, 
 });
@@ -97,6 +101,25 @@ scene.add(moon);
 moon.position.z = 30;
 moon.position.setX(10);
 
+
+//astronaut
+const loader = new GLTFLoader()
+loader.load('scene.gltf', function(glb){
+    console.log(glb)
+    const astronaut = glb.scene;
+    astronaut.position.z = 30;
+    astronaut.position.setX(-10);
+    astronaut.scale.set(5, 5, 5);
+    scene.add(astronaut);
+}, function(xhr){
+    console.log((xhr.loader/xhr.total * 100) + "% loaded")
+}, function(error){
+    console.log('An error occured')
+
+});
+
+
+
 function moveCamera(){
 
     const t = document.body.getBoundingClientRect().top;
@@ -106,6 +129,9 @@ function moveCamera(){
   
     usen.rotation.y += 0.01;
     usen.rotation.z += 0.01;
+
+    //loader.rotation.y += 0.01;
+    //loader.rotation.z += 0.01;
   
     camera.position.z = t * -0.01;
     camera.position.x = t * -0.0002;
@@ -123,9 +149,16 @@ function animate(){
     torus.rotation.y += 0.005;
     torus.rotation.z += 0.01;
 
+    //astro.rotation.x += 0.01;
+    //astro.rotation.y += 0.005;
+   // astro.rotation.z += 0.01;
+
     controls.update();
 
     renderer.render( scene, camera);
 }
+
+
+
 
 animate()
