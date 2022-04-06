@@ -18,7 +18,7 @@ const renderer = new THREE.WebGL1Renderer({
 
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
-camera.position.setZ(30);
+camera.position.setZ(-0.1);
 
 renderer.render( scene, camera);
 
@@ -109,6 +109,7 @@ loader.load('scene.gltf', function(glb){
     const astronaut = glb.scene;
     astronaut.position.z = 30;
     astronaut.position.setX(-10);
+    astronaut.position.setY(-10);
     astronaut.scale.set(5, 5, 5);
     scene.add(astronaut);
 }, function(xhr){
@@ -133,7 +134,7 @@ function moveCamera(){
     //loader.rotation.y += 0.01;
     //loader.rotation.z += 0.01;
   
-    camera.position.z = t * -0.01;
+    camera.position.z = t * -0.015;
     camera.position.x = t * -0.0002;
     camera.rotation.y = t * -0.0002;
 
